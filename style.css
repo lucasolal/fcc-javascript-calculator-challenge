@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Iceland&display=swap");
+div, span, button {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+}
+
+#calculator {
+  display: grid;
+  width: 270px;
+  height: 400px;
+  grid-gap: 13px;
+  border: 1px white solid;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20vh;
+  border: 6px #bf70a0 solid;
+  border-radius: 35px;
+  background-color: #ffaae8;
+  grid-template-rows: repeat(1fr, 6);
+  grid-template-columns: repeat(1fr, 5);
+  grid-template-areas: "dis dis dis dis" "ac ac div mul" "7 8 9 plus" "4 5 6 minus" "1 2 3 dec" "0 eq eq dec";
+}
+#calculator > button {
+  color: white;
+  background-color: #ed8dcd;
+  font-weight: bold;
+  font-size: 1.7em;
+  font-family: "Iceland";
+  border: 0;
+  border-radius: 7px;
+  box-shadow: 2px 3px 5px #39ffef;
+}
+#calculator > button:active {
+  position: relative;
+  top: 1px;
+  left: 2px;
+  box-shadow: 0px 0px 0px;
+}
+#calculator > #clear {
+  background-color: #e3db85;
+}
+#calculator > #equals {
+  background-color: #8fde83;
+}
+
+#display {
+  padding-right: 10px;
+  background-color: #9c5d7c;
+  color: cyan;
+  font-family: "Iceland";
+  font-size: 2em;
+  border: 3px white solid;
+  align-self: center;
+  justify-self: center;
+  text-align: right;
+  width: 95%;
+}
+
+#display {
+  grid-area: dis;
+}
+
+#clear {
+  grid-area: ac;
+}
+
+#divide {
+  grid-area: div;
+}
+
+#multiply {
+  grid-area: mul;
+}
+
+#add {
+  grid-area: plus;
+}
+
+#subtract {
+  grid-area: minus;
+}
+
+#decimal {
+  grid-area: dec;
+}
+
+#equals {
+  grid-area: eq;
+}
+
+@media (max-width: 600px) {
+  #calculator {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
