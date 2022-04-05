@@ -1,0 +1,91 @@
+const {useState} = React;
+
+function App()  {
+  
+  [displayText, setDisplayText] = useState("0");
+  [isFloat, toggleFloat] = useState(false);
+  
+  const handleButton = e => {
+    const char = event.target.innerText;
+    if(char == "AC") {
+      setDisplayText("0");
+      toggleFloat(false);
+    }
+    else if(/^[1-9]$/.test(char)) {
+      setDisplayText(prevState => prevState == "0" ? `${char}` : `${prevState}${char}`);
+    }
+    else if(char==="0") {
+      setDisplayText(prevState => 
+        prevState == "0" ? prevState : `${prevState}${char}` ); 
+    }
+    else if(char===".") {
+      setDisplayText(prevState => {
+        const newDisplayText = isFloat? prevState : `${prevState}.`;
+        toggleFloat(true);
+        return newDisplayText;
+      })
+    }
+    else if(/^(\+|\/|\x)+$/.test(char)) {
+      toggleFloat(false);
+      setDisplayText(prevState => {
+        const lastChar = displayText.slice(-1);
+         if(lastChar == char)
+           return prevState;
+         else if(/^(\+|-|\/|\x)$/.test(lastChar))
+           return `${prevState.replace(/[\+x\/-]+/,"")}${char}`;
+         else
+           return `${prevState}${char}`;
+      })
+    }
+    else if(char == "-") {
+      toggleFloat(false);
+      setDisplayText(prevState => {
+        const lastChar = displayText.slice(-1);
+        if(lastChar == char)
+           return prevState;
+        else {
+          return `${prevState}${char}`;
+        }
+      })
+    }
+    else if(char == "=") {
+        setDisplayText(prevState => {
+        const result = Math.round(10000*eval(prevState.replace("x","*")))/10000;
+        if(Math.floor(result) != result)
+          toggleFloat(true);
+        return result.toString();   
+      });
+    }
+  }
+  
+  return (
+    <div id="calculator">
+      <input 
+        type="text"
+        id="display" 
+        size="14"  
+        value={displayText} 
+     />
+      <button id="clear" onClick={handleButton}>AC</button>
+      <button id="decimal" onClick={handleButton}>.</button>
+      <button id="add" onClick={handleButton}>+</button>
+      <button id="subtract" onClick={handleButton}>-</button>
+      <button id="multiply" onClick={handleButton}>x</button>
+      <button id="divide" onClick={handleButton}>/</button>
+      <button id="seven" onClick={handleButton}>7</button>
+      <button id="eight" onClick={handleButton}>8</button>
+      <button id="nine" onClick={handleButton}>9</button>
+      <button id="four" onClick={handleButton}>4</button>
+      <button id="five" onClick={handleButton}>5</button>
+      <button id="six" onClick={handleButton}>6</button>
+      <button id="one" onClick={handleButton}>1</button>
+      <button id="two" onClick={handleButton}>2</button>
+      <button id="three" onClick={handleButton}>3</button>
+      <button id="zero" onClick={handleButton}>0</button>
+      <button id="equals" onClick={handleButton}>=</button>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
